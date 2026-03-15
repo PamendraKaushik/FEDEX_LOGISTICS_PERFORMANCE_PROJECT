@@ -1,144 +1,229 @@
-📦 FEDEX Logistics Performance Analysis
-🚀 Project Overview
+# 📦 FedEx Logistics Performance Analysis (EDA)
 
-This project analyzes logistics shipment data to identify cost drivers, operational inefficiencies, vendor dependency risks, and delivery delay patterns.
+## 📌 Project Overview
 
-The objective is to transform raw shipment data into actionable business insights that can help logistics managers optimize freight cost, improve delivery performance, and support data-driven operational decisions.
+This project performs **Exploratory Data Analysis (EDA)** on a logistics dataset related to **FedEx global supply chain operations**. The goal of the analysis is to identify patterns affecting **delivery performance, shipment reliability, vendor efficiency, and logistics costs**.
 
-This project demonstrates strong skills in Exploratory Data Analysis (EDA), data cleaning, visualization, and business storytelling.
+By analyzing shipment data such as shipment mode, country, vendor information, delivery timelines, shipment weight, freight cost, and insurance cost, the project uncovers insights that can help optimize supply chain operations.
 
-🎯 Business Objective
+The analysis helps answer key business questions such as:
 
-Logistics operations generate large volumes of shipment data, but without structured analysis, it is difficult to:
+* What factors affect **on-time delivery**?
+* Does **shipment mode** impact delivery performance?
+* Which **countries experience more delivery delays**?
+* Does **vendor lead time affect delivery reliability**?
+* Is there a relationship between **shipment weight and insurance cost**?
 
-Identify high-cost shipment modes
+The insights generated from this analysis can support **data-driven decision making in logistics planning and supply chain management**.
 
-Detect vendor concentration risks
+---
 
-Analyze delivery delay patterns
+# 🎯 Business Objective
 
-Optimize freight expenses
+The primary objective of this project is to **improve supply chain efficiency and delivery reliability** by identifying the factors influencing shipment delays and logistics costs.
 
-This project aims to answer:
+Key goals include:
 
-Which shipment modes contribute most to freight cost?
+* Improve **on-time delivery performance**
+* Identify **high-delay regions and vendors**
+* Understand **cost drivers such as freight and insurance**
+* Support **better shipment planning and vendor selection**
 
-What factors influence delivery delays?
+---
 
-Are there cost inefficiencies based on weight or route?
+# 📊 Dataset Information
 
-Is there over-dependence on specific vendors?
+The dataset contains **10,000+ logistics shipment records** with **33 features** including shipment details, product information, delivery dates, and cost metrics.
 
-🛠️ Tools & Technologies Used
+### Important Features
 
-Python
+| Feature                   | Description                                                     |
+| ------------------------- | --------------------------------------------------------------- |
+| Country                   | Destination country of shipment                                 |
+| Managed By                | Team responsible for logistics management                       |
+| Shipment Mode             | Transportation mode (Air, Sea, Truck, etc.)                     |
+| Vendor INCO Term          | International commercial terms defining shipment responsibility |
+| Scheduled Delivery Date   | Planned delivery date                                           |
+| Delivered to Client Date  | Actual delivery date                                            |
+| Weight (Kilograms)        | Weight of shipment                                              |
+| Freight Cost (USD)        | Shipping cost                                                   |
+| Line Item Insurance (USD) | Insurance cost for shipment                                     |
 
-Pandas – Data Cleaning & Manipulation
+---
 
-NumPy – Numerical Operations
+# 🛠️ Technologies Used
 
-Matplotlib & Seaborn – Data Visualization
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Google Colab / Jupyter Notebook
 
-Jupyter Notebook – Analysis Environment
+---
 
-📂 Dataset Description
+# 🔧 Data Cleaning & Preprocessing
 
-The dataset contains logistics shipment records including:
+The following steps were performed to prepare the dataset for analysis:
 
-Shipment Mode (Air, Ocean, Ground, etc.)
+* Removed spaces and special characters from column names
+* Handled missing values
+* Converted relevant columns to numeric format
+* Converted date columns to datetime format
+* Removed extreme outliers
+* Created new derived features
 
-Vendor Information
+### Feature Engineering
 
-Origin & Destination
+Three important new features were created:
 
-Freight Cost
+**Delivery Delay Days**
 
-Shipment Weight
+```
+Delivery Delay Days = Delivered Date - Scheduled Delivery Date
+```
 
-Line Item Value
+**On-Time Delivery Flag**
 
-Delivery Delay Days
+```
+On Time = 1 if Delivery Delay <= 0 else 0
+```
 
-These variables allow detailed operational and financial performance analysis.
+**Vendor Lead Time**
 
-🔎 Project Workflow
-1️⃣ Data Cleaning & Preparation
+```
+Vendor Lead Time = Scheduled Delivery Date - PO Sent to Vendor Date
+```
 
-Checked and handled missing values
+These features helped analyze shipment performance more effectively.
 
-Corrected data types
+---
 
-Removed inconsistencies
+# 📈 Exploratory Data Analysis
 
-Performed feature formatting
+Several visualizations were created to understand relationships between variables.
 
-2️⃣ Exploratory Data Analysis (EDA)
-Univariate Analysis
+## 1️⃣ Team Performance Analysis
 
-Shipment mode distribution
+A bar chart was used to compare **on-time delivery performance across logistics teams**.
 
-Freight cost distribution
+**Insight**
 
-Vendor shipment volume
+* Some teams consistently achieve higher on-time delivery rates.
 
-Delay frequency
+---
 
-Bivariate Analysis
+## 2️⃣ Shipment Mode vs Delivery Performance
 
-Freight cost vs. shipment weight
+A count plot was used to analyze **on-time vs delayed deliveries across shipment modes**.
 
-Delay vs. shipment mode
+**Insight**
 
-Vendor contribution to total cost
+* Shipment mode significantly affects delivery reliability.
+* Air shipments tend to have higher on-time rates.
 
-Cost variation across transport modes
+---
 
-📊 Key Performance Indicators (KPIs) Analyzed
+## 3️⃣ Country-Wise Delivery Delay Analysis
 
-Total Freight Cost
+A bar chart identified countries with the **highest average delivery delays**.
 
-Average Freight Cost per Shipment
+**Insight**
 
-Shipment Volume by Mode
+* Certain countries show consistent delays, possibly due to customs or infrastructure challenges.
 
-Average Delivery Delay
+---
 
-Vendor Contribution %
+## 4️⃣ Vendor Lead Time vs Delivery Outcome
 
-Cost per Unit Weight
+A boxplot was used to compare **vendor lead times for on-time vs delayed shipments**.
 
-📈 Key Insights
+**Insight**
 
-Air shipments contribute disproportionately higher freight costs compared to other modes.
+* Longer vendor lead times increase the likelihood of shipment delays.
 
-A small number of vendors account for a large share of shipment volume, indicating vendor dependency risk.
+---
 
-Delivery delays vary significantly across shipment modes.
+## 5️⃣ INCO Terms and Vendor Performance
 
-Freight cost shows a positive correlation with shipment weight.
+A line chart analyzed **on-time delivery percentage across different INCO terms**.
 
-Certain shipment modes may be optimized for cost reduction without affecting delivery timelines significantly.
+**Insight**
 
-💡 Business Recommendations
+* Some INCO terms result in better delivery reliability than others.
 
-Optimize shipment mode selection for non-urgent deliveries.
+---
 
-Diversify vendor allocation to reduce dependency risk.
+## 6️⃣ Weight vs Insurance Cost
 
-Monitor high-delay routes and implement performance tracking.
+A scatter plot with regression was used to analyze **relationship between shipment weight and insurance cost**.
 
-Use cost-per-weight metrics for better pricing negotiation strategies.
+**Insight**
 
-🧠 Skills Demonstrated
+* Insurance cost generally increases with shipment weight.
 
-Data Cleaning & Transformation
+---
 
-Exploratory Data Analysis (EDA)
+## 7️⃣ Correlation Analysis
 
-Business-Oriented Insight Extraction
+A correlation heatmap was used to analyze relationships between numerical variables.
 
-Data Visualization
+**Key Findings**
 
-Analytical Thinking
+* Strong correlation between **Line Item Quantity and Line Item Value**
+* Positive correlation between **Weight and Freight Cost**
+* Moderate correlation between **Shipment Value and Freight Cost**
 
-Operational Performance Evaluation
+---
+
+# 📊 Key Insights
+
+* Shipment mode has a significant impact on delivery performance.
+* Vendor lead time is a major contributor to shipment delays.
+* Some countries consistently experience higher delivery delays.
+* Heavier shipments lead to higher freight and insurance costs.
+* Shipment quantity strongly influences total shipment value.
+
+---
+
+# 💡 Business Recommendations
+
+Based on the analysis, the following recommendations were proposed:
+
+### 1️⃣ Optimize Shipment Mode
+
+Use air shipments only for urgent deliveries and shift heavy shipments to sea or truck to reduce costs.
+
+### 2️⃣ Improve Vendor Monitoring
+
+Track vendors with long lead times and renegotiate contracts if necessary.
+
+### 3️⃣ Country-Specific Logistics Planning
+
+Implement buffer times for shipments to high-delay countries.
+
+### 4️⃣ Freight Cost Optimization
+
+Consolidate shipments and negotiate freight contracts to reduce shipping expenses.
+
+### 5️⃣ Data-Driven Logistics Planning
+
+Use predictive models to forecast shipping costs and delivery delays.
+
+---
+
+# 📌 Conclusion
+
+This project demonstrates how **data analysis can improve supply chain efficiency** by identifying patterns affecting delivery performance and logistics costs.
+
+Through exploratory data analysis and visualization, the project highlights opportunities for **better shipment planning, vendor management, and cost optimization**.
+
+---
+
+# 👨‍💻 Author
+
+**Pamendra Kaushik**
+
+Data Analyst | Python | SQL | Data Visualization
+
+---
